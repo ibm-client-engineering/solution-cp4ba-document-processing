@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[508],{9187:s=>{s.exports=JSON.parse('{"label":"log","permalink":"/solution-cp4ba-document-processing/blog/tags/log","allTagsPath":"/solution-cp4ba-document-processing/blog/tags","count":1}')}}]);
