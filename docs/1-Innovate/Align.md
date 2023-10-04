@@ -5,9 +5,22 @@ title: Define
 ---
 ## Vision
 
+Deployment of CP4BA with Automated Document Processing upon OpenShift in Google Cloud.
+
 ### Purpose
 
+Provide a Proof of Concept asset that is documented and deployed.
+
 ### Objectives
+
+### Current Assumptions
+
+- Deployment upon a smaller sized cluster but not a starter pack.
+  - Update sizing to reflect smaller deployment
+- GPUs to be included within the worker nodes
+- Can this be done without requiring ODF and leveraging Google Cloud Filestore
+  - Determine appropriate sizing requirements for storage
+- Determine time required to lay down openshift and cp4ba
 
 ### Target Outcomes & Success Metrics
 
