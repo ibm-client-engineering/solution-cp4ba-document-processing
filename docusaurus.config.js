@@ -109,7 +109,7 @@ async function createconfig() {
     themeConfig:
       /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
       ({
-        metadata: [{ name: 'keywords', content: 'ibm client engineering, open solutions library,  filenet, eks, aws, cp4ba, filenet on aws eks' }],
+        metadata: [{ name: 'keywords', content: 'ibm client engineering, open solutions library, gcp, ocp, cp4ba, CP4BA on OCP' }],
         mermaid: {
           theme: { light: 'neutral', dark: 'dark' },
         },
@@ -130,7 +130,7 @@ async function createconfig() {
           },
         },
         navbar: {
-          title: '| IBM FileNet on AWS EKS',
+          title: '| IBM Automated Document Processing',
           logo: {
             alt: 'My Site Logo',
             src: 'img/logo.svg',
