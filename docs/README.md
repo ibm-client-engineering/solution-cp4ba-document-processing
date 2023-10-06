@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 slug: /
-title: 'Flight Path | Automated Document Processing'
+title: 'Automated Document Processing'
 ---
 [![Site Build](https://github.com/ibm-client-engineering/solution-filenet-aws/actions/workflows/deploy.yml/badge.svg)](https://github.com/ibm-client-engineering/solution-filenet-aws/actions/workflows/deploy.yml)
 

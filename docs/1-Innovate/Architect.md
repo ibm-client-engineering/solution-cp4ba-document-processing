@@ -6,7 +6,29 @@ title: Architect
 
 
 ## Block View
+### Starter Architecture for MVP
+<iframe
+  title="ADP"
+  width="800"
+  height="300"
+  src="https://app.terrastruct.com/diagrams/1223319277">
+</iframe>
 
-![CP4BA_GCP-OpenShift.drawio (1).png](https://zenhub.ibm.com/images/58adc1fd5a3922f84995d86b/60e3d3c2-ddb5-4ffb-82ee-18a10e7dd11c)
+Note: NVIDIA is the only supported GPU for Deep Learning in the Document Processing
+
+:::note
+
+The initial MVP will use the **Starter** Pattern to train and process documents on 3 sub-types of documents.
+
+:::
 
 ## Architecture Decisions
+
+### Assumptions
+- 2 week deployment sprint
+- Online Installation (non air-gap)
+- Direct access to IBM Cloud Registry
+
+### Production Level Architecture
+![CP4BA_GCP-OpenShift.drawio (1).png](https://zenhub.ibm.com/images/58adc1fd5a3922f84995d86b/60e3d3c2-ddb5-4ffb-82ee-18a10e7dd11c)
+
