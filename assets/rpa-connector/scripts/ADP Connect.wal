@@ -1,4 +1,3 @@
-//ADP Connect V1
 //File reading and input variables
 defVar --name inputfileReader --type TextFileReader
 defVar --name filesLocation --type String

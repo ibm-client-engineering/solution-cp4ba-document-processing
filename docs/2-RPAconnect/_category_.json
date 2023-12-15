@@ -1,0 +1,9 @@
+{
+  "label": "RPA Connector",
+  "position": 3,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "description": "Use RPA to send files to ADP for remote document processing"
+  }
+}
