@@ -1,0 +1,57 @@
+---
+id: script
+sidebar_position: 3
+title: Using the Script
+---
+1. Download the latest RPA .wal file [here](#/assets/rpa-connector/scripts/ADP%20Connect.wal)
+2. Open ADP Connext.wal with RPA
+3. Run the RPA script
+4. Select your input file
+
+The script will be run and ADP will recieve all files in the folder that your input file indicates. Your output folder will populate with the results for each file from ADP as well as a summary file containing all results together.
+
+Example:
+```
+BOL_009_1_1.pdf
+
+Document Classification: BillOfLading
+Document Classification Confidence: High
+----------------------------------------------------------------------
+Key: BillOfLadingNumber
+1:    Value: 21255769 ; Confidence 537.021
+2:    Value: 21255769 ; Confidence 443.271
+------------------------------------------------------------------
+Key: TrackingNumber
+1:    Value: 7151846224 ; Confidence 444.807
+------------------------------------------------------------------
+Key: NotifyParty
+1:    Value: Castro Convertibles & Auto Parts ; Confidence 353.745
+------------------------------------------------------------------
+Key: Shipper
+1:    Value: Titaniuworks ; Confidence 354.129
+------------------------------------------------------------------
+Key: PortOfLoading
+1:    Value: Mario ; Confidence 362.193
+2:    Value: Mario ; Confidence 268.443
+------------------------------------------------------------------
+Key: PortOfDischarge
+1:    Value: STREETHAY ; Confidence 350.673
+2:    Value: STREETHAY ; Confidence 256.923
+------------------------------------------------------------------
+Key: PlaceOfReceipt
+1:    Value: STREETHAY ; Confidence 357.585
+2:    Value: STREETHAY ; Confidence 263.835
+------------------------------------------------------------------
+BOL_005_2_1.pdf
+
+Document Classification: BillOfLading
+Document Classification Confidence: High
+----------------------------------------------------------------------
+Key: BillOfLadingNumber
+1:    Value: 21255769 ; Confidence 537.021
+2:    Value: 21255769 ; Confidence 443.271
+------------------------------------------------------------------
+Key: TrackingNumber
+1:    Value: 7151846224 ; Confidence 444.807
+------------------------------------------------------------------
+```
