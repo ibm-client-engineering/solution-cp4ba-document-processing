@@ -5,9 +5,10 @@ ADP Username
 ADP Password
 ADP Project ID
 
+Example:
 C:\Users\Joe\Documents\RPA\ADP Call\Input
 C:\Users\Joe\Documents\RPA\ADP Call\Processed Files
-https://cpd-adp.cp4ba-prod-na-01-blabla.us-east.containers.appdomain.cloud
+https://blabla.containers.appdomain.cloud
 jcosenz
-myADPpassword
-8da6a696-bf59-4f57-89a0-da1fb9af03c1
+myADPpassword!
+8000000-0000-0000-0000-0000000000c1
