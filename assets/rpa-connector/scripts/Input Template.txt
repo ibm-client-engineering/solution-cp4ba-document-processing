@@ -1,0 +1,14 @@
+Folder Location
+Output Location
+ADP URL
+ADP Username
+ADP Password
+ADP Project ID
+
+Example:
+C:\Users\Joe\Documents\RPA\ADP Call\Input
+C:\Users\Joe\Documents\RPA\ADP Call\Processed Files
+https://blabla.containers.appdomain.cloud
+jcosenz
+myADPpassword!
+8000000-0000-0000-0000-0000000000c1

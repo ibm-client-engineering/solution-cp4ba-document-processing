@@ -1,0 +1,35 @@
+---
+id: prepareinput
+sidebar_position: 2
+title: Preparing the Input
+---
+
+### Prepare the Input File
+
+The ADP Connect script requires a text file (.txt) as input, which allows RPA to read the required parameters to run the script. 
+
+Each of the first 6 lines of the input file are read by RPA:
+1. Folder Location (The files to send to ADP)
+2. Output Location (The files sent back from ADP with the document processing results)
+3. ADP URL (The URL of the ADP instance)
+4. ADP Username
+5. ADP Password
+6. ADP Project ID (The project ID of the ADP document processing project)
+
+
+Create a text file with the above information
+
+Example:
+input.txt
+```
+C:\Users\Joe\Documents\RPA\ADP Call\Input
+C:\Users\Joe\Documents\RPA\ADP Call\Processed Files
+https://cpd-adp.cp4ba-prod-na-01-blabla.us-east.containers.appdomain.cloud
+jcosenz
+myADPpassword
+8da6a696-....-....-....-da1fb9af03c1
+```
+
+:::danger
+All files in the input directory folder will be sent to ADP. You must make a new folder or use an existing folder that only contains the documents you want sent to ADP.
+:::
