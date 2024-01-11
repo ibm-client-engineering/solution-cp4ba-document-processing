@@ -109,8 +109,9 @@ foreach --collection "${inputFilePaths}" --variable "${filepath}"
 		httpRequest --verb "Get" --url "${adpURL}/adp/aca/v1/projects/${ADPprojectID}/analyzers/${analyzerId}/json/basic" --headers ${retrieveJsonHeaders} --noproxy  response=value
 		mapJson --handleError  --json "${response}" --mappings "{\"result[0].data.typeName\":\"${classification}\",\"result[0].data.fieldList\":\"${kvpList}\"}"
 		logMessage --message "Processing json payload..." --type "Info"
-		logMessage --message "\rDocument Classification: ${classification}\r\n" --type "Info"
-		appendLineToText --text "${outputString}" --value "Document Classification: ${classification}" outputString=value
+		logMessage --message "Document Classification: ${classification}\n" --type "Info"
+		setVar --name "${outputString}"
+		appendLineToText --text "${outputString}" --value "\rDocument Classification: ${classification}\r" outputString=value
 		appendLineToText --text "${outputString}" --value "----------------------------------------------------------------------" outputString=value
 		
 		//Process Json Payload
