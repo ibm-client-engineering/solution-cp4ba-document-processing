@@ -12,63 +12,72 @@ custom_edit_url: null
 The script will be run and ADP will recieve all files in the folder that your input file indicates. Your output folder will populate with the results for each file from ADP as well as a summary file containing all results together.
 
 Example:
-:::danger
-The current version of the ADP API does not reflect the key value. This must be fixed with a more complex parser script (Work in progress)
-:::
+
 ```
-
-
-Document Classification: BillOfLading
-Document Classification Confidence: High
+Document Classification: Bill of Lading
 ----------------------------------------------------------------------
-Key Name: BillOfLadingNumber
-Occurance 1:    KVPID: 0cf5b360c754417aa6d3fae8c39c09a1; Confidence 89.38%
-Occurance 2:    KVPID: 6c21bd2f476a435a9b0173cf233cc73c; Confidence 62%
+Key: Bill of lading number
+Value: 21255769
+Confidence 89.38%
 ------------------------------------------------------------------
-Key Name: Shipper
-Occurance 1:    KVPID: c062ad2560c14ca0b14b6cbae374adcf; Confidence 60.97%
+Key: Shipper
+Value: Titaniuworks
+Confidence 60.97%
 ------------------------------------------------------------------
-Key Name: Consignee
-Occurance 1:    KVPID: eb582a59da2c4e678587ecbc8e877e31; Confidence 61.21%
-Occurance 2:    KVPID: b030f0e7b7f04dd1af7eb226abcc088e; Confidence 40.68%
+Key: Consignee
+Value: Castro Convertibles & Auto Parts
+Confidence 61.21%
 ------------------------------------------------------------------
-Key Name: Carrier
-Occurance 1:    KVPID: 51e605a835d94447a612f19fc200be87; Confidence 61.75%
+Key: Carrier name
+No Value Found
+Confidence: 61.75%
 ------------------------------------------------------------------
-Key Name: NotifyParty
-Occurance 1:    KVPID: ad4d5c18c55041a9a86277851b190fa2; Confidence 60.91%
+Key: Notify party
+Value: Castro Convertibles & Auto Parts
+Confidence 60.91%
 ------------------------------------------------------------------
-Key Name: PortOfLoading
-Occurance 1:    KVPID: e90523235e454e1fbd8287ce3b6f9645; Confidence 62.22%
+Key: Port of loading
+Value: Mario
+Confidence 62.22%
 ------------------------------------------------------------------
-Key Name: PortOfDischarge
-Occurance 1:    KVPID: 73bbf72d695a4b1c9c887e3fe33d877e; Confidence 60.43%
+Key: Port of discharge
+Value: STREETHAY
+Confidence 60.43%
 ------------------------------------------------------------------
-Key Name: PlaceOfDelivery
-Occurance 1:    KVPID: d7767e46c1e949c29359345915f3a891; Confidence 61.27%
+Key: Place of delivery
+Value: UK
+Confidence 61.27%
 ------------------------------------------------------------------
-Key Name: PlaceOfReceipt
-Occurance 1:    KVPID: 94051d8b4e1a41dd88715e89ff8ef6c1; Confidence 61.51%
+Key: Place of receipt
+Value: STREETHAY
+Confidence 61.51%
 ------------------------------------------------------------------
-Key Name: TotalCharges
-Occurance 1:    KVPID: 7c6b88451198499aaf222494891bf93c; Confidence 61.63%
+Key: Total charges
+No Value Found
+Confidence: 61.63%
 ------------------------------------------------------------------
-Key Name: BillDate
-Occurance 1:    KVPID: a5736008f9a745d7948d3d232a98b7ad; Confidence 89.56%
+Key: Bill date
+Value: 2020-03-03
+Confidence 89.56%
 ------------------------------------------------------------------
-Key Name: ShipmentTable
-Occurance 1:    KVPID: 390487e28b18401a84e3695b26183caf; Confidence 15.09%
+Key: Shipment table
+No Value Found
+Confidence: 15.09%
 ------------------------------------------------------------------
-Key Name: ShipperSignature
-Occurance 1:    KVPID: 0eecd42245124b54bd61bf431506db52; Confidence 72.92%
+Key: Shipper signature
+Value: true
+Confidence 72.92%
 ------------------------------------------------------------------
-Key Name: ConsigneeSignature
-Occurance 1:    KVPID: 1a9144a26445453aa57d526fae66ab81; Confidence 61.69%
+Key: Consignee signature
+No Value Found
+Confidence: 61.69%
 ------------------------------------------------------------------
-Key Name: TrackingNumber
-Occurance 1:    KVPID: 5d650699c2664c3488abb9dcbcadb868; Confidence 89.02%
+Key: Tracking number
+Value: 7151846224
+Confidence 89.02%
 ------------------------------------------------------------------
-Key Name: CODAmount
-Occurance 1:    KVPID: 71d5fcfd8f2d4dd7bcaa52443c5efcf4; Confidence 61.63%
+Key: COD Amount
+No Value Found
+Confidence: 61.63%
 ------------------------------------------------------------------
 ```
