@@ -42,6 +42,8 @@ defVar --name statusCode --type Numeric
 defVar --name sendFileHeaders --type StringDictionary --innertype String
 defVar --name pollRequestHeaders --type StringDictionary --innertype String
 defVar --name retrieveJsonHeaders --type StringDictionary --innertype String
+defVar --name confidencePercentage --type Numeric
+defVar --name confidencePercentageT --type Numeric
 //Get input file from user
 selectFile --title "Please provide the input text file" --filter "*.txt" userInput=filepath
 //Assign Variables
@@ -118,19 +120,19 @@ foreach --collection "${inputFilePaths}" --variable "${filepath}"
 		jsonToTable --handleError  --json "${kvpList}" --jsonPath "$" table=value rows=rows columns=columns
 		for --variable ${kvpTableIndex} --from 1 --to ${rows} --step 1
 			//Process Keys
-			mapTableRow --dataTable ${table} --row ${kvpTableIndex} --mappings "[{\"Name\":null,\"Number\":\"2\",\"Output\":\"${key}\"}]"
-			mapTableRow --dataTable ${table} --row ${kvpTableIndex} --mappings "[{\"Name\":null,\"Number\":\"4\",\"Output\":\"${valueJson}\"}]"
-			jsonToTable --json "${valueJson}" --jsonPath "$" jsonValueTable=value
-			logMessage --message "Key: ${key}" --type "Info"
-			appendLineToText --text "${outputString}" --value "Key: ${key}" --comment "Add the Key row to the output file" outputString=value
+			mapTableRow --dataTable ${table} --row ${kvpTableIndex} --mappings "[{\"Name\":\"KeyClassName\",\"Number\":\"\",\"Output\":\"${key}\"}]"
+			mapTableRow --dataTable ${table} --row ${kvpTableIndex} --mappings "[{\"Name\":\"KVPRankedList\",\"Number\":\"\",\"Output\":\"${valueJson}\"}]"
+			jsonToTable --handleError  --json "${valueJson}" --jsonPath "$" jsonValueTable=value
+			appendLineToText --text "${outputString}" --value "Key Name: ${key}" --comment "Add the Key row to the output file" outputString=value
 			//Process Values
 			for --variable ${valueTableIndex} --from 1 --to ${jsonValueTable.Rows} --step 1
-				mapTableRow --dataTable ${jsonValueTable} --row ${valueTableIndex} --mappings "[{\"Name\":null,\"Number\":\"3\",\"Output\":\"${kvpValue}\"},{\"Name\":null,\"Number\":\"4\",\"Output\":\"${confidence}\"}]"
+				mapTableRow --dataTable ${jsonValueTable} --row ${valueTableIndex} --mappings "[{\"Name\":\"KVPID\",\"Number\":\"\",\"Output\":\"${kvpValue}\"},{\"Name\":\"FieldConfidence\",\"Number\":\"\",\"Output\":\"${confidence}\"}]"
 				if --left "${confidence}" --operator "Equal_To" --right 0
 					setVar --name "${kvpValue}" --value "Value Not Found!"
 				endIf
-				logMessage --message "${valueTableIndex}:        Value: ${kvpValue}   Confidence: ${confidence}" --type "Info"
-				appendLineToText --text "${outputString}" --value "${valueTableIndex}:    Value: ${kvpValue} ; Confidence ${confidence}" outputString=value
+				convertStringToNumber --text "${confidence}" --allowdecimalpoint  confidencePercentage=value
+				truncateNumber --value ${confidencePercentage} --type "Round" --precision 2 confidencePercentageT=value
+				appendLineToText --text "${outputString}" --value "Occurance ${valueTableIndex}:    KVPID: ${kvpValue}; Confidence ${confidencePercentageT}%" outputString=value
 			next
 			appendLineToText --text "${outputString}" --value "------------------------------------------------------------------" outputString=value
 		next
