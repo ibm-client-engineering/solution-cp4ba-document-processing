@@ -2,6 +2,7 @@
 id: script
 sidebar_position: 3
 title: Using the Script
+custom_edit_url: null
 ---
 1. Download the latest RPA .wal file [here](https://github.com/ibm-client-engineering/solution-cp4ba-document-processing/blob/main/assets/rpa-connector/scripts/ADP%20Connect.wal)
 2. Open ADP Connext.wal with RPA
@@ -11,50 +12,72 @@ title: Using the Script
 The script will be run and ADP will recieve all files in the folder that your input file indicates. Your output folder will populate with the results for each file from ADP as well as a summary file containing all results together.
 
 Example:
-:::danger
-The current version of the ADP API does not reflect the correct confidence number. This must be fixed with an ADP application update to pull the proper confidence values.
-:::
-```
-BOL_009_1_1.pdf
 
-Document Classification: BillOfLading
-Document Classification Confidence: High
+```
+Document Classification: Bill of Lading
 ----------------------------------------------------------------------
-Key: BillOfLadingNumber
-1:    Value: 21255769 ; Confidence 537.021
-2:    Value: 21255769 ; Confidence 443.271
-------------------------------------------------------------------
-Key: TrackingNumber
-1:    Value: 7151846224 ; Confidence 444.807
-------------------------------------------------------------------
-Key: NotifyParty
-1:    Value: Castro Convertibles & Auto Parts ; Confidence 353.745
+Key: Bill of lading number
+Value: 21255769
+Confidence 89.38%
 ------------------------------------------------------------------
 Key: Shipper
-1:    Value: Titaniuworks ; Confidence 354.129
+Value: Titaniuworks
+Confidence 60.97%
 ------------------------------------------------------------------
-Key: PortOfLoading
-1:    Value: Mario ; Confidence 362.193
-2:    Value: Mario ; Confidence 268.443
+Key: Consignee
+Value: Castro Convertibles & Auto Parts
+Confidence 61.21%
 ------------------------------------------------------------------
-Key: PortOfDischarge
-1:    Value: STREETHAY ; Confidence 350.673
-2:    Value: STREETHAY ; Confidence 256.923
+Key: Carrier name
+No Value Found
+Confidence: 61.75%
 ------------------------------------------------------------------
-Key: PlaceOfReceipt
-1:    Value: STREETHAY ; Confidence 357.585
-2:    Value: STREETHAY ; Confidence 263.835
+Key: Notify party
+Value: Castro Convertibles & Auto Parts
+Confidence 60.91%
 ------------------------------------------------------------------
-BOL_005_2_1.pdf
-
-Document Classification: BillOfLading
-Document Classification Confidence: High
-----------------------------------------------------------------------
-Key: BillOfLadingNumber
-1:    Value: 21255769 ; Confidence 537.021
-2:    Value: 21255769 ; Confidence 443.271
+Key: Port of loading
+Value: Mario
+Confidence 62.22%
 ------------------------------------------------------------------
-Key: TrackingNumber
-1:    Value: 7151846224 ; Confidence 444.807
+Key: Port of discharge
+Value: STREETHAY
+Confidence 60.43%
+------------------------------------------------------------------
+Key: Place of delivery
+Value: UK
+Confidence 61.27%
+------------------------------------------------------------------
+Key: Place of receipt
+Value: STREETHAY
+Confidence 61.51%
+------------------------------------------------------------------
+Key: Total charges
+No Value Found
+Confidence: 61.63%
+------------------------------------------------------------------
+Key: Bill date
+Value: 2020-03-03
+Confidence 89.56%
+------------------------------------------------------------------
+Key: Shipment table
+No Value Found
+Confidence: 15.09%
+------------------------------------------------------------------
+Key: Shipper signature
+Value: true
+Confidence 72.92%
+------------------------------------------------------------------
+Key: Consignee signature
+No Value Found
+Confidence: 61.69%
+------------------------------------------------------------------
+Key: Tracking number
+Value: 7151846224
+Confidence 89.02%
+------------------------------------------------------------------
+Key: COD Amount
+No Value Found
+Confidence: 61.63%
 ------------------------------------------------------------------
 ```

@@ -42,6 +42,8 @@ defVar --name statusCode --type Numeric
 defVar --name sendFileHeaders --type StringDictionary --innertype String
 defVar --name pollRequestHeaders --type StringDictionary --innertype String
 defVar --name retrieveJsonHeaders --type StringDictionary --innertype String
+defVar --name confidencePercentage --type Numeric
+defVar --name confidencePercentageT --type Numeric
 //Get input file from user
 selectFile --title "Please provide the input text file" --filter "*.txt" userInput=filepath
 //Assign Variables
@@ -76,7 +78,6 @@ foreach --collection "${inputFilePaths}" --variable "${filepath}"
 		strDictAdd --key Authorization --value "Bearer ${token}" --dictionary ${sendFileHeaders}
 		strDictAdd --key Authorization --value "Bearer ${token}" --dictionary ${pollRequestHeaders}
 		strDictAdd --key Authorization --value "Bearer ${token}" --dictionary ${retrieveJsonHeaders}
-		
 		//Create http content for file send
 		logMessage --message "Creating request content..." --type "Info"
 		createHttpContent --formattype "Bytes" --file "${filepath}" fileContent=value
@@ -105,34 +106,37 @@ foreach --collection "${inputFilePaths}" --variable "${filepath}"
 		
 		//Retrieve Json for document
 		logMessage --message "Retrieving Json Payload..." --type "Info"
-		httpRequest --verb "Get" --url "${adpURL}/adp/aca/v1/projects/${ADPprojectID}/analyzers/${analyzerId}/json" --headers ${retrieveJsonHeaders} --noproxy  response=value
-		mapJson --handleError  --json "${response}" --mappings "{\"result[0].data.Classification.DocumentClass.Actual\":\"${classification}\",\"result[0].data.Classification.DocumentClass.ClassMatch\":\"${classificationConfidence}\",\"result[0].data.KeyClassRankedList\":\"${kvpList}\"}"
+		httpRequest --verb "Get" --url "${adpURL}/adp/aca/v1/projects/${ADPprojectID}/analyzers/${analyzerId}/json/basic" --headers ${retrieveJsonHeaders} --noproxy  response=value
+		mapJson --handleError  --json "${response}" --mappings "{\"result[0].data.typeName\":\"${classification}\",\"result[0].data.fieldList\":\"${kvpList}\"}"
 		logMessage --message "Processing json payload..." --type "Info"
-		logMessage --message "\r\nDocument Classification: ${classification}\r\nClassification Confidence: ${classificationConfidence}\r\n\r\n" --type "Info"
-		appendLineToText --text "${outputString}" --value "Document Classification: ${classification}" outputString=value
-		appendLineToText --text "${outputString}" --value "Document Classification Confidence: ${classificationConfidence}" outputString=value
+		logMessage --message "Document Classification: ${classification}\n" --type "Info"
+		setVar --name "${outputString}"
+		appendLineToText --text "${outputString}" --value "\rDocument Classification: ${classification}\r" outputString=value
 		appendLineToText --text "${outputString}" --value "----------------------------------------------------------------------" outputString=value
 		
 		//Process Json Payload
+		replaceText --texttoparse "${kvpList}" --textpattern "\"\"" --replacement null kvpList=value
 		jsonToTable --json "${kvpList}" --jsonPath "$" jsonValueTable=value
 		jsonToTable --handleError  --json "${kvpList}" --jsonPath "$" table=value rows=rows columns=columns
 		for --variable ${kvpTableIndex} --from 1 --to ${rows} --step 1
 			//Process Keys
-			mapTableRow --dataTable ${table} --row ${kvpTableIndex} --mappings "[{\"Name\":null,\"Number\":\"2\",\"Output\":\"${key}\"}]"
-			mapTableRow --dataTable ${table} --row ${kvpTableIndex} --mappings "[{\"Name\":null,\"Number\":\"4\",\"Output\":\"${valueJson}\"}]"
-			jsonToTable --json "${valueJson}" --jsonPath "$" jsonValueTable=value
-			logMessage --message "Key: ${key}" --type "Info"
-			appendLineToText --text "${outputString}" --value "Key: ${key}" --comment "Add the Key row to the output file" outputString=value
-			//Process Values
-			for --variable ${valueTableIndex} --from 1 --to ${jsonValueTable.Rows} --step 1
-				mapTableRow --dataTable ${jsonValueTable} --row ${valueTableIndex} --mappings "[{\"Name\":null,\"Number\":\"3\",\"Output\":\"${kvpValue}\"},{\"Name\":null,\"Number\":\"4\",\"Output\":\"${confidence}\"}]"
-				if --left "${confidence}" --operator "Equal_To" --right 0
-					setVar --name "${kvpValue}" --value "Value Not Found!"
-				endIf
-				logMessage --message "${valueTableIndex}:        Value: ${kvpValue}   Confidence: ${confidence}" --type "Info"
-				appendLineToText --text "${outputString}" --value "${valueTableIndex}:    Value: ${kvpValue} ; Confidence ${confidence}" outputString=value
-			next
-			appendLineToText --text "${outputString}" --value "------------------------------------------------------------------" outputString=value
+			mapTableRow --dataTable ${table} --row ${kvpTableIndex} --mappings "[{\"Name\":\"DisplayName\",\"Number\":\"\",\"Output\":\"${key}\"}]"
+			mapTableRow --dataTable ${table} --row ${kvpTableIndex} --mappings "[{\"Name\":\"Value\",\"Number\":\"\",\"Output\":\"${kvpValue}\"}]"
+			mapTableRow --dataTable ${table} --row ${kvpTableIndex} --mappings "[{\"Name\":\"FieldConfidence\",\"Number\":\"\",\"Output\":\"${confidence}\"}]"
+			jsonToTable --handleError  --json "${kvpList}" --jsonPath "$" jsonValueTable=value
+			if --left "${kvpValue}" --operator "Is_Null" --negate
+				appendLineToText --text "${outputString}" --value "Key: ${key}" --comment "Add the Key row to the output file" outputString=value
+				convertStringToNumber --text "${confidence}" --allowdecimalpoint  confidencePercentage=value
+				truncateNumber --value ${confidencePercentage} --type "Round" --precision 2 confidencePercentageT=value
+				appendLineToText --text "${outputString}" --value "Value: ${kvpValue}\nConfidence ${confidencePercentageT}%" outputString=value
+				appendLineToText --text "${outputString}" --value "------------------------------------------------------------------" outputString=value
+			else
+				appendLineToText --text "${outputString}" --value "Key: ${key}" --comment "Add the Key row to the output file" outputString=value
+				convertStringToNumber --text "${confidence}" --allowdecimalpoint  confidencePercentage=value
+				truncateNumber --value ${confidencePercentage} --type "Round" --precision 2 confidencePercentageT=value
+				appendLineToText --text "${outputString}" --value "No Value Found\nConfidence: ${confidencePercentageT}%" outputString=value
+				appendLineToText --text "${outputString}" --value "------------------------------------------------------------------" outputString=value
+			endIf
 		next
 	else
 		logMessage --message "ADP Login failed. Status code ${statusCode}\r\nResponse: ${response}" --type "Error"
